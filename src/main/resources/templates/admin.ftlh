@@ -12,7 +12,7 @@
 <div class=" d-flex h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
         <div>
-            <h3 class="float-md-start mb-0">Cover</h3>
+            <h3 class="float-md-start mb-0">Документ и.</h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
                 <a class="mac col dec nav-masthead fw-bold py-1 px-0" aria-current="page" href="/main">Главная страница</a>
                 <#if user.isAdmin()>
@@ -20,7 +20,7 @@
                 </#if>
                 <form class="nav-masthead  dec fw-bold py-1 px-0" action="/logout" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
-                    <a class="mac col" href="/logout">Выход</a>
+                    <a class="mac col" href="/login">Выход</a>
                 </form>
             </nav>
         </div>
@@ -60,7 +60,7 @@
     </main>
 
     <footer class="mt-auto text-white-50">
-        <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+        <p>Cover template for <a href="https://tsput.ru/" class="text-white">ТГПУ</a>, by <a href="https://vk.com/dmtrkrylov" class="text-white">@dmtrkrylov</a>.</p>
     </footer>
 </div>
 

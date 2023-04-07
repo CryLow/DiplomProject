@@ -25,18 +25,12 @@ public class CartController {
     }
     @GetMapping("/cart/{id}")
     public String cartInfo(@PathVariable Long id, Model model){
-        Cart cart = cartService.getCartById(id);
         model.addAttribute("cart", cartService.getCartById(id));
         return "cart-info";
-    }
-    @PostMapping("/cart/create")
-    public String createCart(@RequestParam("file") MultipartFile file, Cart cart, Principal principal) throws IOException {
-        cartService.saveCart(cart,file,cartService.getUserByPrincipal(principal));
-        return "redirect:/";
     }
     @PostMapping("/cart/delete/{id}")
     public String deleteCart(@PathVariable Long id){
         cartService.deleteCart(id);
-        return "redirect:/";
+        return "redirect:/cart";
     }
 }
