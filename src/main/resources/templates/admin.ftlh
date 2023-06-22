@@ -1,72 +1,76 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:spring="http://java.sun.com/xml/ns/javaee">
+<html>
+
 <head>
-    <title>Администрирование</title>
+    <title>Главная страница</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="script" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js">
-    <link rel="stylesheet" href="/css/styleMain.css">
+    <link rel="stylesheet" href="css/styleHeader.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
-<body class="d-flex h-100 text-center text-bg-dark">
+<#include "blocks/header_main.ftlh">
 
-<div class=" d-flex h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-        <div>
-            <h3 class="float-md-start mb-0">Документ и.</h3>
-            <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="mac col dec nav-masthead fw-bold py-1 px-0" aria-current="page" href="/main">Главная страница</a>
-                <#if user.isAdmin()>
-                    <a class="mac dec nav-masthead fw-bold py-1 px-0 active" href="/admin">Панель администратора</a>
-                </#if>
-                <form class="nav-masthead  dec fw-bold py-1 px-0" action="/logout" method="post">
-                    <input type="hidden" name="_csrf" value="${_csrf.token}">
-                    <a class="mac col" href="/login">Выход</a>
-                </form>
-            </nav>
-        </div>
-    </header>
+<body>
+<div class="container mt-5 pt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase mb-0">Управление пользователями</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table no-wrap user-table mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Фамилия Имя</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Активность</th>
+                            <th scope="col" class="border-0 text-uppercase font-medium">Роль</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <#assign temp = 0>
+                        <#list users as user>
+                            <#assign temp = temp + 1>
+                            <tr>
+                                <td class="pl-4">${temp}</td>
 
-    <main class="px-1">
-        <h1>Панель администратора</h1>
-        <table class="table table-borderless table-dark">
-            <tr>
-                <th>Имя</th>
-                <th>Email</th>
-                <th>Активность</th>
-                <th>Роли</th>
-                <th>Изменение роли</th>
-                <th>Доступ</th>
-            </tr>
-            <#list users as user>
-                <tr>
-                    <th>${user.firstname}</th>
-                    <th>${user.email}</th>
-                    <th><#if user.active>Есть доступ<#else>Нет доступа</#if></th>
-                    <th><#list user.roles as role>
-                            <#if role == 'ROLE_USER'>Пользователь<#else><#if role == 'ROLE_ADMIN'>Администратор</#if></#if>
+                                <td>
+                                    <h5 class="font-medium mb-0">
+                                        <#if user.getSecondname()?has_content>${user.getSecondname()}</#if>
+                                        <#if user.getFirstname()?has_content>${user.getFirstname()}</#if>
+                                    </h5>
+                                </td>
+
+                                <td>
+                                    <span class="text-muted">${user.getEmail()}</span><br>
+                                </td>
+                                <td>
+                                    <span class="text-muted"><#if user.getLastLogin()?has_content>${user.getDateFormat(user.getLastLogin())}<br>${user.getTimeFormat(user.getLastLogin())}</#if></span><br>
+                                    <#--<form action="/admin/user/access/${user.id}" method="post">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                        <input type="submit" value="Изменить доступ">
+                                    </form>-->
+                                </td>
+                                <td>
+                                    <select class="form-control category-select" id="exampleFormControlSelect1">
+                                        <option <#if user.isAdmin()>selected</#if>>Администратор</option>
+                                        <option <#if user.isEmployee()>selected</#if>>Сотрудник</option>
+                                        <option <#if user.isGuest()>selected</#if>>Гость</option>
+                                    </select>
+                                </td>
+
+                            </tr>
+                        <#else>
                         </#list>
-                    </th>
-                    <th><a href="/admin/user/edit/${user.id}">Изменение роли</a></th>
-                    <th>
-                        <form action="/admin/user/access/${user.id}" method="post">
-                            <input type="hidden" name="_csrf" value="${_csrf.token}">
-                            <input type="submit" value="Изменить доступ">
-                        </form>
-                    </th>
-                </tr>
-                <#else>
-            </#list>
-        </table>
-    </main>
-
-    <footer class="mt-auto text-white-50">
-        <p>Cover template for <a href="https://tsput.ru/" class="text-white">ТГПУ</a>, by <a href="https://vk.com/dmtrkrylov" class="text-white">@dmtrkrylov</a>.</p>
-    </footer>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row"> <a href="main.php"><button class="btn_1 btn-lg btn-primary_1 color-btn" type="submit">Сохранить изменения</button></a></div>
 </div>
-
-
-
-
-
 </body>
-</html>

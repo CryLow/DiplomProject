@@ -23,11 +23,7 @@ public class CartController {
         model.addAttribute("carts",cartService.listCarts(title));
         return "cart";
     }
-    @GetMapping("/cart/{id}")
-    public String cartInfo(@PathVariable Long id, Model model){
-        model.addAttribute("cart", cartService.getCartById(id));
-        return "cart-info";
-    }
+
     @PostMapping("/cart/delete/{id}")
     public String deleteCart(@PathVariable Long id){
         cartService.deleteCart(id);

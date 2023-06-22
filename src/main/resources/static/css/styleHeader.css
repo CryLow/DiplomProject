@@ -1,0 +1,37 @@
+.logo {
+    width: 180px;
+}
+.form-grow{
+    display: flex;
+    flex-grow: 1;
+}
+
+header {
+    padding-top: 1.5rem!important;
+    margin: 0px!important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px; /* высота header */
+    padding: 0 20px; /* отступы слева и справа */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa; /* цвет фона */
+    z-index: 1000;
+}
+.nav-pills_s {
+    --bs-nav-pills-border-radius: 0.375rem;
+    --bs-nav-pills-link-active-color: #fff;
+    --bs-nav-pills-link-active-bg: #0d6efd;
+    margin-left: 300px;
+}
+.main_page{
+    flex-direction: row!important;
+margin-bottom: 1.5rem!important;
+align-items: center!important;
+border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color)!important;
+display: flex!important;
+box-sizing: border-box;
+}

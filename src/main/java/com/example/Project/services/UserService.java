@@ -22,7 +22,7 @@ public class UserService {
         if(userRepository.findByEmail(user.getEmail())!=null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(Role.ROLE_ADMIN);
+        user.getRoles().add(Role.ROLE_USER);
         log.info("Saving new User with email: {}", email);
         userRepository.save(user);
         return true ;
@@ -30,7 +30,7 @@ public class UserService {
     public User findByUser(String name){
         return userRepository.findByEmail(name);
     }
-    public List<User> list(){
+       public List<User> list(){
         return userRepository.findAll();
     }
 
@@ -46,5 +46,16 @@ public class UserService {
             }
         }
         userRepository.save(user);
+    }
+
+    public void editProfile(Long id, User user) {
+        User thisUser  = userRepository.findById(id).orElse(null);
+        thisUser.setSecondname(user.getSecondname());
+        thisUser.setFirstname(user.getFirstname());
+        thisUser.setMiddlename(user.getMiddlename());
+        thisUser.setEmail(user.getEmail());
+        thisUser.setPost(user.getPost());
+        thisUser.setExperience(user.getExperience());
+        userRepository.save(thisUser);
     }
 }
